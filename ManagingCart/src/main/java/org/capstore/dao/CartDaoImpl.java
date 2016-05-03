@@ -20,7 +20,7 @@ public class CartDaoImpl implements CartDao{
 	
 
 	public List<Cart> getAllCartItems() {		
-		return sessionFactory.getCurrentSession().createQuery("FROM Product P where P.product_id=1").list();
+		return sessionFactory.getCurrentSession().createQuery("FROM cart").list();
 	}
 
 	public void deleteCartItems(Integer product_id) {
@@ -37,12 +37,6 @@ public class CartDaoImpl implements CartDao{
 		return cart;
 	}
 
-	
-	/*public void updateCartItems(Cart cart) {
-		// TODO Auto-generated method stub
 		
-	}
-*/
-	
 
 }

@@ -37,3 +37,53 @@
 		</tr>
 		</table>
 		</form:form>
+		
+		
+		<div>
+	<h3 align="center">Your Cart Details</h3>
+
+<c:if test="${!empty cartitems }">
+	<table>
+		<tr>
+				<th>Product</th>
+				<th>Description</th>
+				<th>Update</th>
+				<th>Discounted Price</th>
+				<th>Total</th>
+		</tr>
+		
+		<c:forEach items="${accounts }" var="acc">
+			<tr>
+				<td>${acc.accountNo }</td>
+				<td>${acc.accountName }</td>
+				<td>${acc.accountType }</td>
+				<td>${acc.openDate }</td>
+				<td>${acc.amount }</td>
+				<td>${acc.accountDob }</td>
+				<td>${acc.gender }</td>
+				<td>
+					<a href="delete/${acc.accountNo}">Delete</a>
+					&nbsp;&nbsp;
+					<a href="update/${acc.accountNo}">update</a>
+					
+				</td>
+			</tr>
+			
+		</c:forEach>
+	
+	</table>
+
+
+</c:if>
+
+</div>
+
+	</body>
+</html>	
+		
+		
+		
+		
+		
+		
+		

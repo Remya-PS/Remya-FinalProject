@@ -19,25 +19,43 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 	@Controller
+	@RequestMapping("/carts")
 	public class CartController {
 		
 	@Autowired
 	private CartService cartService;
 	private Cart cartList;
+	private Cart searchCartItems=null;
 	
-	@RequestMapping("/addCart")
-	public String insertCartTable(Map<String, Object> maps){
+	@RequestMapping(value="/saveToCart?product_id=product.getProduct_id()",method=RequestMethod.POST)
+	public ModelAndView saveCartItems(@Valid @ModelAttribute("cart") Cart cart,
+			BindingResult result){
 		
+		if(!result.hasErrors()){
+			System.out.println(cart);
+			cartService.saveCartItems(cart);
+			return new ModelAndView("redirect:ProductPage");
+		}else
+		{
+			return new ModelAndView("ProductPage");
+		}
+	
+		
+	}
+	
+	@RequestMapping(value="/displayCart",method=RequestMethod.POST)
+	public String showCartItems(Map<String, Object> maps,
+			@Valid @ModelAttribute("cart") Cart cart, BindingResult result){
 		List<Cart> cartitems= cartService.getAllCartItems();
 		
 		maps.put("carts", cartitems);		
 		maps.put("cart", new Cart());
 		
-		return "cartManagement";
+		return "managementOfCart";
 	}
 	
-	@RequestMapping(value={"/saveCartItems","/updateCartItems"}, method=RequestMethod.POST)
-	public String showCartDetails(Map<String,Object> map,@Valid @ModelAttribute("cart") Cart cart,BindingResult result){
+	//@RequestMapping(value={"/saveCartItems","/updateCartItems"}, method=RequestMethod.POST)
+	/*public String showCartDetails(Map<String,Object> map,@Valid @ModelAttribute("cart") Cart cart,BindingResult result){
 				
 		List<Cart> cartitems =cartService.getAllCartItems();
 		
@@ -47,23 +65,24 @@ import org.springframework.web.servlet.ModelAndView;
 			{
 				return "cartManagement";
 			}
-		else{
-				cartService.saveCartItems(cart);
+		else{		cartService.saveCartItems(cart);
 				return "redirect:/addcart";
-			}
-	}
+			}*/
+	//}
 	@RequestMapping("/deleteCartItems/{product_id}")
 	public String deleteCartItems(@PathVariable("product_id") Integer product_id)
 		{
 			cartService.deleteCartItems(product_id);
-			return "redirect:/addcart";
+			return "redirect:/managementOfCart";
 			
 		}
 	
-	/*@RequestMapping("/updateCartItems/{product_id}")
+	@RequestMapping("/updateCartItems/{product_id}")
 	public String updateCartItems(@PathVariable("product_id") Integer product_id){
-		Cart cart=cartService.search
-		
-	}*/
+		Cart cart=cartService.searchCartItems(product_id);
+		searchCartItems=cart;
+		 //System.out.println(emp);
+		return"redirect:/managementOfCart";
+	}
 			
 }

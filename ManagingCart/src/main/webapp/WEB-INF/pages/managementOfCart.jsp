@@ -37,7 +37,8 @@
 	<style type="text/css" id="enject"></style>
   </head>
 <body>
-<div id="header">
+<!-- 	Commented From here -->
+<%-- <div id="header">
 <div class="container">
 <div id="welcomeLine" class="row">
 	<div class="span6">Welcome!<strong> User</strong></div>
@@ -212,7 +213,7 @@
 			</form>
 		  </td>
 		  </tr>
-	</table>		
+	</table>		 --%>
 			
 	<table class="table table-bordered">
               <thead>
@@ -228,11 +229,18 @@
               <tbody>
                 <tr>
                 <c:forEach items=${carts} var="product"}>
-                  <td> <img width="60" src="../images/product/sofa.jpg" alt=""/></td>
+                  <td> <img width="60" src="${product.image}" alt=""/></td>
                  <%--  <td>${product.image}</td> --%>
                   <td>${product.specification}</td>
 				  <td>
-					<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div>
+					<div class="input-append"><select>
+												  <option value="1">1</option>
+												  <option value="2">2</option>
+												  <option value="3">3</option>
+												  <option value="4">4</option>
+												  <option value="5">5</option>
+											</select>
+<button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div>
 				  </td>
                   <td>${product.price}</td>
                   <td>$25.00</td>
@@ -243,9 +251,10 @@
 				</tbody>
 				</c:forEach>
             </table>
+            
+		<!-- 	Commented From here -->
 		
-		
-            <table class="table table-bordered">
+            <%-- <table class="table table-bordered">
 			<tbody>
 				 <tr>
                   <td> 
@@ -397,6 +406,6 @@
 	</div>
 	</div>
 </div>
-<span id="themesBtn"></span>
+<span id="themesBtn"></span> --%>
 </body>
 </html>

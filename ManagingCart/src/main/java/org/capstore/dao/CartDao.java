@@ -14,5 +14,4 @@ public interface CartDao {
 	
 	public Cart searchCartItems(Integer product_id);
 	
-	//public void updateCartItems(Cart cart);
 }

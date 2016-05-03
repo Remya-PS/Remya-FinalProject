@@ -39,7 +39,7 @@ public class MainClass {
 		session.save(customer1);
 		session.save(customer2);
 		session.save(customer3);
-		
+	
 		session.getTransaction().commit();
 		session.close();
 		
