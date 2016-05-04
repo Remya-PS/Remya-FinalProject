@@ -3,6 +3,7 @@ package org.capstore.dao;
 import java.util.List;
 
 import org.capstore.domain.Cart;
+import org.capstore.domain.Customer;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,8 +20,10 @@ public class CartDaoImpl implements CartDao{
 	}
 	
 
-	public List<Cart> getAllCartItems() {		
-		return sessionFactory.getCurrentSession().createQuery("FROM cart").list();
+	public List<Cart> getAllCartItems(Customer customer) {
+		
+		String sql="FROM Product where product_id In(Select product_id from cart where cart_id='"+customer.getCart_id()+"')";
+		return sessionFactory.getCurrentSession().createQuery(sql).list();
 	}
 
 	public void deleteCartItems(Integer product_id) {

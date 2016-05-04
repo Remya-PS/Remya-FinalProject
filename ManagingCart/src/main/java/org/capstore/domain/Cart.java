@@ -11,76 +11,49 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Cart {
 		
-	private int cart_id;
-	private int product_id;
-		
-	@NotEmpty(message="*Atleast one item shold be purchased")
+	/*private int cart_id;
+	private int product_id;*/
+	@Id
+	@GeneratedValue
+	private int serialNo;
+	
+	@NotNull(message="*Quantity cannot be null")
+	@NotEmpty(message="*Atleast one item should be purchased")
 	private int quantity;
 	
 	
 	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	@JoinColumn(name="customer_id_FK")
+	@JoinColumn(name="cart_id")
 	private Customer customer;
 	
 	
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,
 			targetEntity=Product.class,mappedBy="cart")
-	@JoinColumn(name="product_id_FK")
+	@JoinColumn(name="product_id")
 	private List<Product> product=new ArrayList<Product>();
-
 
 
 	//--------------------------------------------POJO-----------------------------------------
 
-	
 	public Cart(){}
 	
-	public Cart(int cart_id, int product_id, int quantity, Customer customer, List<Product> product) {
+	public Cart(int quantity) {
 		super();
-		this.cart_id = cart_id;
-		this.product_id = product_id;
-		this.quantity = quantity;
-		this.customer = customer;
-		this.product = product;
-	}
-
-
-	public Cart(int cart_id, int product_id, int quantity) {
-		super();
-		this.cart_id = cart_id;
-		this.product_id = product_id;
 		this.quantity = quantity;
 	}
-		
 
-	public int getCart_id() {
-		return cart_id;
-	}
-
-	public void setCart_id(int cart_id) {
-		this.cart_id = cart_id;
-	}
-
-
-	public int getProduct_id() {
-		return product_id;
-	}
-
-
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
-	}
-
-
+	
 	public int getQuantity() {
 		return quantity;
 	}
+
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
@@ -92,11 +65,9 @@ public class Cart {
 	}
 
 
-
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-
 
 
 	public List<Product> getProduct() {
@@ -108,10 +79,12 @@ public class Cart {
 		this.product = product;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Cart [cart_id=" + cart_id + ", product_id=" + product_id + ", quantity=" + quantity + ", customer="
-				+ customer + ", product=" + product + "]";
+		return "Cart [quantity=" + quantity + ", customer=" + customer + ", product=" + product + "]";
 	}
+
+	
 	
 }

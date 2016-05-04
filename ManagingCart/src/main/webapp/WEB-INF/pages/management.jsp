@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Product Page</title>
+<title>Cart Page</title>
 <style type="text/css">
 .errMsg{
 	color: red;
@@ -18,7 +18,7 @@
 </head>
 <body>
 <form:form action="saveCartItems" method="post" commandName="cartList">
-	<h1 align="center">Account Registration Form</h1>
+	<h1 align="center">Home Page-Thumbnail</h1>
 	
 	<table>
 		<tr>
@@ -48,11 +48,10 @@
 				<th>Product</th>
 				<th>Description</th>
 				<th>Update</th>
-				<th>Discounted Price</th>
-				<th>Total</th>
+				<th>Price</th>				
 		</tr>
 		
-		<c:forEach items="${accounts }" var="acc">
+		<c:forEach items="${cartitems }" var="cart">
 			<tr>
 				<td>${acc.accountNo }</td>
 				<td>${acc.accountName }</td>
@@ -81,9 +80,49 @@
 	</body>
 </html>	
 		
+	-------------------------------------------------------------------------------------	
 		
-		
-		
-		
+	<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Cart Details</title>
+
+
+</head>
+
+
+<div style=" width: 900px;">
+<c:if test="${!empty cart1 }">
+	<table>
+		<tr>
+			<th>Cart Id</th>
+			<th>Quantity</th>
+			<th>Total</th>
+			<!-- <th>Products</th> -->
+		</tr>
+		<c:forEach items="${cart1}" var="cart">
+			<tr>
+			<td>${ cart.cart_id}</td>
+			<td>${ cart.quantity}</td>
+			<td>${ cart.total}</td>
+			<td>${ cart.products}</td>
+
+	</tr>
+		</c:forEach>
+	
+	</table>
+
+
+</c:if>
+
+</div>
+<body>
+
+</body>
+</html>	
+		 --%>
 		
 		

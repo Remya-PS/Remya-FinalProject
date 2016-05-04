@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Product {
 	
@@ -38,7 +40,7 @@ public class Product {
 	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinTable(name="product_cart_table",
 		joinColumns={@JoinColumn(name="product_id")},
-		/*inverseJoinColumns={@JoinColumn(name="serial_no")})	*/
+		//inverseJoinColumns={@JoinColumn(name="serial_no")})	
 	inverseJoinColumns={@JoinColumn(name="cart_id")})	
 	private List<Cart> cart=new ArrayList<Cart>();
 	

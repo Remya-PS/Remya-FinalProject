@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 	@Controller
-	@RequestMapping("/carts")
+	/*@RequestMapping("/carts")*/
 	public class CartController {
 		
 	@Autowired
@@ -27,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 	private Cart cartList;
 	private Cart searchCartItems=null;
 	
-	@RequestMapping(value="/saveToCart?product_id=product.getProduct_id()",method=RequestMethod.POST)
+	@RequestMapping(value="/saveToCart",method=RequestMethod.POST)
 	public ModelAndView saveCartItems(@Valid @ModelAttribute("cart") Cart cart,
 			BindingResult result){
 		
@@ -46,7 +46,8 @@ import org.springframework.web.servlet.ModelAndView;
 	@RequestMapping(value="/displayCart",method=RequestMethod.POST)
 	public String showCartItems(Map<String, Object> maps,
 			@Valid @ModelAttribute("cart") Cart cart, BindingResult result){
-		List<Cart> cartitems= cartService.getAllCartItems();
+		cart.getCustomer();
+		List<Cart> cartitems= cartService.getAllCartItems(cart.getCustomer());
 		
 		maps.put("carts", cartitems);		
 		maps.put("cart", new Cart());
