@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+<context:component-scan base-package="org.capstore"/>
+<!-- 
+<context:component-scan base-package="org.capstore.service"/> 
+<context:component-scan base-package="org.capstore.dao"/>
+<context:component-scan base-package="org.capstore.pojo"/>  -->
+
+<!-- <bean id="categorydao" class="org.capstore.dao.CategoryDaoImpl"/>
+<bean id="categoryservice" class="org.capstore.service.CategoryServiceImpl"/>
+<bean id="customerservice" class="org.capstore.service.CustomerServiceImpl"/>
+<bean id="customerdao" class="org.capstore.dao.CustomerDaoImpl"/>
+<bean id="productservice" class="org.capstore.service.ProductServiceImpl"/>
+<bean id="productdao" class="org.capstore.dao.ProductDaoImpl"/> 
+ -->
+
+<mvc:annotation-driven/>
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+	<property name="prefix" value="/WEB-INF/pages/"/>
+	<property name="suffix" value=".jsp"/>
+</bean>
+
+<bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+        p:location="/WEB-INF/jdbc1.properties" />
+
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"  
+
+        p:driverClassName="${jdbc.driverClassName}"
+        p:url="${jdbc.databaseurl}"
+        p:username="${jdbc.username}" 
+        p:password="${jdbc.password}" />
+        
+        
+ 
+<bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation">
+            <value>classpath:hibernate.cfg.xml</value>
+        </property>
+        <property name="configurationClass">
+            <value>org.hibernate.cfg.AnnotationConfiguration</value>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${jdbc.dialect}</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>    
+
+
+<tx:annotation-driven />
+        
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+<mvc:annotation-driven/>
+
+
+<!-- 
+<mvc:resources location="/images/" mapping="/images/**"/>
+<mvc:resources location="/css/" mapping="/css/**"/> -->
+<mvc:resources location="/script/" mapping="/script/**"/>
+
+<mvc:resources location="/images/" mapping="/images/**"/>	
+<mvc:resources location="/css/" mapping="/css/**"/>	
+<mvc:resources location="/js/" mapping="/js/**"/>
+<mvc:resources location="/fonts/" mapping="/fonts/**"/>	
+
+
+
+</beans>
